@@ -1,7 +1,6 @@
 #import pandas as pd
 import numpy as np
-
-from scipy.stats import chi2
+from scipy.stats import gamma
 
 
 chat_id = 372005520 # Ваш chat ID, не меняйте название переменной
