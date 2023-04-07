@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+import scipy.stats as stat
 from scipy.stats import norm
 
 
@@ -13,7 +13,9 @@ def solution(p: float, x: np.array) -> tuple:
     t = 47
     alpha = 1 - p
     a = 2*x/t**2
-    loc = a.mean()+0.5
+    # stat.erlang.ppf(p, n, loc=0, scale=1/n).
+    loc = a.mean()
     scale = np.sqrt(np.var(x)) / np.sqrt(len(x))
-    return loc - scale * norm.ppf(1 - alpha / 2), \
-           loc - scale * norm.ppf(alpha / 2)
+    n=len(x)
+    return loc - scale * stat.erlang.ppf(1 - alpha / 2,n,loc=0, scale=1/n ), \
+           loc - scale * stat.erlang.ppf(alpha / 2,n,loc=0, scale=1/n)
