@@ -18,4 +18,4 @@ def solution(p: float, x: np.array) -> tuple:
     scale = np.sqrt(np.var(x)) / np.sqrt(len(x))
     n=len(x)
     return loc - stat.erlang.ppf(1 - alpha / 2,n,loc=0, scale=1/n ), \
-           loc - stat.erlang.ppf(alpha / 2,n,loc=0, scale=1/n)
+           loc + stat.erlang.ppf(alpha / 2,n,loc=0, scale=1/n)
