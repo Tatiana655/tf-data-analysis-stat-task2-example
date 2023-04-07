@@ -1,7 +1,7 @@
-import pandas as pd
+#import pandas as pd
 import numpy as np
-import scipy.stats as stat
-from scipy.stats import norm
+
+from scipy.stats import chi2
 
 
 chat_id = 372005520 # Ваш chat ID, не меняйте название переменной
@@ -12,10 +12,7 @@ def solution(p: float, x: np.array) -> tuple:
     # Не меняйте название функции и её аргументы
     t = 47
     alpha = 1 - p
-    a = 2*x/t**2
-    # stat.erlang.ppf(p, n, loc=0, scale=1/n).
-    loc = a.mean()
-    scale = np.sqrt(np.var(x)) / np.sqrt(len(x))
-    n=len(x)
-    return loc - stat.erlang.ppf(1 - alpha / 2,n,loc=0, scale=1/n ), \
-           loc + stat.erlang.ppf(alpha / 2,n,loc=0, scale=1/n)
+    sum_x_2 = sum([e ** 2 for e in x])
+    q_l = chi2(2 * n).ppf(q=alpha / 2)
+    q_r = chi2(2 * n).ppf(q=1 - alpha / 2)
+    return np.sqrt(sum_x_2 / q_r / t), np.sqrt(sum_x_2 / q_l / t)
